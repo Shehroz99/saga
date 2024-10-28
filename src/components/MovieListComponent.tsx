@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Movie, Review } from "../interface/IMovie";
-import "slick-carousel/slick/slick.css"
-import "slick-carousel/slick/slick-theme.css"
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 
 const MovieListComponent: React.FC = () => {
@@ -48,57 +48,69 @@ const MovieListComponent: React.FC = () => {
   if (moviesWithTopReviews.length === 0)
     return <p className="text-center text-white">No movies available</p>;
 
-
   let settings = {
     dots: true,
     infinte: true,
     speed: 500,
-    slidesToShow: 4,
+    slidesToShow: 1,
     slidesToScroll: 1,
-
-
-  }
+  };
 
   return (
-    <div className="min-h-screen bg-gray-800 py-10">
-      <div className="container mx-auto p-4 border border-gray-700 rounded-lg bg-gray-900 shadow-lg">
-
+    <div className="min-h-screen bg-gray-800 py-10 overflow-hidden">
+      <div className="w-1/2 mx-auto border border-gray-700 rounded-lg bg-gray-900 shadow-lg">
         <Slider {...settings}>
-        {moviesWithTopReviews.map(({ movie, review }, index) => (
-          <div
-            key={`${movie.slug}-${index}`}
-            className="mb-8 p-4 border-b border-gray-700 last:border-b-0"
-          >
-            <div className="flex items-start gap-4">
-              <img
-                src={movie.program.poster}
-                alt="Movie poster"
-                className="w-28 h-40 rounded-lg shadow-md"
-              />
-              <div className="flex-1">
-                <div className="flex items-center gap-2 mb-2">
+          {moviesWithTopReviews.map(({ movie, review }, index) => (
+            <div
+              key={`${movie.slug}-${index}`}
+              className="w-80 bg-[#2E2233] shadow-lg text-white "
+            >
+              {/* Movie Image */}
+              <div className="flex items-start gap-4">
+                <img
+                  src={movie.program.poster}
+                  alt="Movie poster"
+                  className="w-1/2 rounded-lg shadow-md"
+                />
+                {/* Movie Details */}
+                <div className="flex-1 ">
+                  {/* Logo and Title */}
                   <img
                     src={review.media.logo}
-                    alt={`${review.media.name} logo`}
-                    className="w-8 h-8 rounded-full"
+                    alt="LOGO"
+                    className="w-40 h-20 flex"
                   />
-                  <h2 className="text-lg font-semibold text-white">
-                    {review.media.name}
-                  </h2>
+                  <p className="text-gray-300 text-sm mb-4">
+                    “{review.comment}”
+                  </p>
+
+                  {/* Rating */}
+                  <div className="flex items-center mb-4">
+                    {[...Array(6)].map((_, i) => (
+                      <span
+                        key={i}
+                        className={`text-xl ${
+                          i < review.rating.score
+                            ? "text-yellow-400"
+                            : "text-gray-500"
+                        }`}
+                      ></span>
+                    ))}
+                  </div>
+
+                  {/* Buttons */}
+                  <div className="flex space-x-2">
+                    <button className="flex items-center justify-center bg-purple-600 px-4 py-2 rounded-lg text-white font-semibold text-sm">
+                      <span className="mr-2">▶️</span> Spill av
+                    </button>
+                    <button className="bg-gray-700 px-4 py-2 rounded-lg text-white font-semibold text-sm">
+                      Les mer
+                    </button>
+                  </div>
                 </div>
-                <p className="text-gray-300 mb-2">{review.comment}</p>
-                <p className="text-gray-400 mb-1">
-                  <strong>Score:</strong> {review.rating.score}/
-                  {review.rating.max} (Normalized: {review.normalized_rating})
-                </p>
-                <p className="text-gray-400">
-                  <strong>Date:</strong>{" "}
-                  {new Date(review.date).toLocaleDateString()}
-                </p>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
         </Slider>
       </div>
     </div>
