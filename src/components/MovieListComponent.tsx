@@ -54,10 +54,11 @@ const MovieListComponent: React.FC = () => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    adaptiveHeight: true,
   };
 
   return (
-    <div className="min-h-screen bg-gray-800 py-10 overflow-hidden flex items-center justify-center min-h-screen;">
+    <div className="min-h-screen bg-gray-800 overflow-hidden flex items-center justify-center min-h-screen;">
       <div className="w-1/2  border-gray-700  bg-gray-900 shadow-lg">
         <Slider {...settings} className="absolute">
           {moviesWithTopReviews.map(({ movie, review }, index) => (
@@ -66,48 +67,51 @@ const MovieListComponent: React.FC = () => {
               className="w-80 bg-[#2E2233] shadow-lg text-white "
             >
               {/* Movie Image */}
-              <div className="flex items-start gap-4">
+              <div className="flex py-1">
                 <img
                   src={movie.program.poster}
                   alt="Movie poster"
                   className="w-1/2 rounded-lg shadow-md"
                 />
                 {/* Movie Details */}
-                <div className="flex-1 ">
-                  {/* Logo and Title */}
-                  <img
-                    src={review.media.logo}
-                    alt="LOGO"
-                    className="w-40 h-20 flex"
-                  />
-                  <p className="text-gray-300 text-sm mb-4">
-                    “{review.comment}”
-                  </p>
+                <div className="flex-col ">
+                  <div className="flex-col justify-end w-fit h-fit">
+                    {/* Logo and Title */}
+                    <img
+                      src={review.media.logo}
+                      alt="LOGO"
+                      className="w-10 h-5 flex justify-center"
+                    />
+                    <p className="text-gray-300 text-left text-xs object-contain overflow-hidden">
+                      “{review.comment}”
+                    </p>
 
-                  {/* Rating */}
-                  <div className="flex items-center mb-4">
-                    {[...Array(6)].map((_, i) => (
-                      <span
-                        key={i}
-                        className={`text-xl ${
-                          i < review.rating.score
-                            ? "text-yellow-400"
-                            : "text-gray-500"
-                        }`}
-                      >
-                        ★
-                      </span>
-                    ))}
+                    {/* Buttons */}
                   </div>
-
-                  {/* Buttons */}
-                  <div className="flex space-x-2">
-                    <button className="flex items-center justify-center bg-purple-600 px-4 py-2 rounded-lg text-white font-semibold text-sm">
-                      <span className="mr-2">▶️</span> Spill av
-                    </button>
-                    <button className="bg-gray-700 px-4 py-2 rounded-lg text-white font-semibold text-sm">
-                      Les mer
-                    </button>
+                  <div className="flex-col justify-end w-fit h-fit">
+                    {/* Rating */}
+                    <div className="flex items-center mb-4">
+                      {[...Array(6)].map((_, i) => (
+                        <span
+                          key={i}
+                          className={`text-sm ${
+                            i < review.rating.score
+                              ? "text-yellow-400"
+                              : "text-gray-500"
+                          }`}
+                        >
+                          ★
+                        </span>
+                      ))}
+                    </div>
+                    <div className=" flex justify-end object-contain">
+                      <button className="flex items-center justify-center bg-purple-600 px-1 py-1 rounded-lg text-white font-semibold text-xs">
+                        <span className="mr-2">▶️</span> Spill av
+                      </button>
+                      <button className="bg-gray-700 px-1 py-1 rounded-lg text-white font-semibold text-xs">
+                        Les mer
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
