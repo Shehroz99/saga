@@ -94,7 +94,9 @@ const MovieListComponent: React.FC = () => {
                             ? "text-yellow-400"
                             : "text-gray-500"
                         }`}
-                      ></span>
+                      >
+                        ★
+                      </span>
                     ))}
                   </div>
 
