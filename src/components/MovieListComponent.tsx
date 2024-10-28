@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Movie, Review } from "../interface/IMovie";
+import "slick-carousel/slick/slick.css"
+import "slick-carousel/slick/slick-theme.css"
+import Slider from "react-slick";
 
 const MovieListComponent: React.FC = () => {
   const [moviesWithTopReviews, setMoviesWithTopReviews] = useState<
     { movie: Movie; review: Review }[]
   >([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -42,79 +44,52 @@ const MovieListComponent: React.FC = () => {
     fetchMovies();
   }, []);
 
-  const nextSlide = () => {
-    setCurrentIndex(
-      (prevIndex) => (prevIndex + 1) % moviesWithTopReviews.length
-    );
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex(
-      (prevIndex) =>
-        (prevIndex - 1 + moviesWithTopReviews.length) %
-        moviesWithTopReviews.length
-    );
-  };
-
-  if (loading) return <p className="text-center">Loading...</p>;
+  if (loading) return <p className="text-center text-white">Loading...</p>;
   if (moviesWithTopReviews.length === 0)
-    return <p className="text-center">No movies available</p>;
+    return <p className="text-center text-white">No movies available</p>;
 
   return (
-    <div className="relative w-full overflow-hidden">
-      <div
-        className="flex transition-transform duration-500"
-        style={{
-          transform: `translateX(-${currentIndex * 100}%)`,
-          width: `${moviesWithTopReviews.length * 100}%`,
-        }}
-      >
+    <div className="min-h-screen bg-gray-800 py-10">
+      <div className="container mx-auto p-4 border border-gray-700 rounded-lg bg-gray-900 shadow-lg">
+
+        <Slider>
         {moviesWithTopReviews.map(({ movie, review }, index) => (
           <div
             key={`${movie.slug}-${index}`}
-            className="bg-white rounded-lg shadow-lg overflow-hidden w-full flex-shrink-0"
-            style={{ width: "100%" }}
+            className="mb-8 p-4 border-b border-gray-700 last:border-b-0"
           >
-            <img
-              src={movie.program.poster}
-              alt="Movie poster"
-              className="w-40 h-40"
-            />
-            <div className="flex p-4">
-              <div className="flex items-center mb-2">
-                <img
-                  src={review.media.logo}
-                  alt={`${review.media.name} logo`}
-                  className="w-10 h-10 mr-2"
-                />
-                <h2 className="text-lg font-semibold">{review.media.name}</h2>
+            <div className="flex items-start gap-4">
+              <img
+                src={movie.program.poster}
+                alt="Movie poster"
+                className="w-28 h-40 rounded-lg shadow-md"
+              />
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-2">
+                  <img
+                    src={review.media.logo}
+                    alt={`${review.media.name} logo`}
+                    className="w-8 h-8 rounded-full"
+                  />
+                  <h2 className="text-lg font-semibold text-white">
+                    {review.media.name}
+                  </h2>
+                </div>
+                <p className="text-gray-300 mb-2">{review.comment}</p>
+                <p className="text-gray-400 mb-1">
+                  <strong>Score:</strong> {review.rating.score}/
+                  {review.rating.max} (Normalized: {review.normalized_rating})
+                </p>
+                <p className="text-gray-400">
+                  <strong>Date:</strong>{" "}
+                  {new Date(review.date).toLocaleDateString()}
+                </p>
               </div>
-              <p className="relative text-gray-700 h-40 w-40">
-                {review.comment}
-              </p>
-              <p className="relative text-gray-600 h-40 w-40">
-                Score: {review.rating.score}/{review.rating.max} (Normalized:{" "}
-                {review.normalized_rating})
-              </p>
-              <p className="text-gray-500 text-sm">
-                Date: {new Date(review.date).toLocaleDateString()}
-              </p>
             </div>
           </div>
         ))}
+        </Slider>
       </div>
-      <button
-        onClick={prevSlide}
-        className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white px-2 py-1 rounded hover:bg-gray-600"
-      >
-        previous
-      </button>
-      <button
-        onClick={nextSlide}
-        className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white px-2 py-1 rounded hover:bg-gray-600"
-      >
-        next
-      </button>
     </div>
   );
 };
