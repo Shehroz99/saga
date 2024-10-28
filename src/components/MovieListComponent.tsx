@@ -48,11 +48,22 @@ const MovieListComponent: React.FC = () => {
   if (moviesWithTopReviews.length === 0)
     return <p className="text-center text-white">No movies available</p>;
 
+
+  let settings = {
+    dots: true,
+    infinte: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+
+
+  }
+
   return (
     <div className="min-h-screen bg-gray-800 py-10">
       <div className="container mx-auto p-4 border border-gray-700 rounded-lg bg-gray-900 shadow-lg">
 
-        <Slider>
+        <Slider {...settings}>
         {moviesWithTopReviews.map(({ movie, review }, index) => (
           <div
             key={`${movie.slug}-${index}`}
