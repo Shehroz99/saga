@@ -74,9 +74,11 @@ const MovieListComponent: React.FC = () => {
                   className="w-1/2 rounded-lg shadow-md"
                 />
                 {/* Movie Details */}
-                <div className="flex-col ">
+                <div className="flex-col py-2 px-2 relative">
                   <div className="flex-col justify-end w-fit h-fit">
                     {/* Logo and Title */}
+                    <h1>{movie.program.title}</h1>
+                    <br></br>
                     <img
                       src={review.media.logo}
                       alt="LOGO"
@@ -88,7 +90,7 @@ const MovieListComponent: React.FC = () => {
 
                     {/* Buttons */}
                   </div>
-                  <div className="flex-col justify-end w-fit h-fit">
+                  <div className="flex-col justify-end w-fit h-fit absolute inset-x-0 bottom-0">
                     {/* Rating */}
                     <div className="flex items-center mb-4">
                       {[...Array(6)].map((_, i) => (
