@@ -48,7 +48,7 @@ const MovieListComponent: React.FC = () => {
   if (moviesWithTopReviews.length === 0)
     return <p className="text-center text-white">No movies available</p>;
 
-  let settings = {
+  const settings = {
     dots: true,
     infinte: true,
     speed: 500,
@@ -57,9 +57,9 @@ const MovieListComponent: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-800 py-10 overflow-hidden">
-      <div className="w-1/2 mx-auto border border-gray-700 rounded-lg bg-gray-900 shadow-lg">
-        <Slider {...settings}>
+    <div className="min-h-screen bg-gray-800 py-10 overflow-hidden flex items-center justify-center min-h-screen;">
+      <div className="w-1/2  border-gray-700  bg-gray-900 shadow-lg">
+        <Slider {...settings} className="absolute">
           {moviesWithTopReviews.map(({ movie, review }, index) => (
             <div
               key={`${movie.slug}-${index}`}
