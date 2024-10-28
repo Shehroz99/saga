@@ -45,25 +45,39 @@ const MovieListComponent: React.FC = () => {
     fetchMovies();
   }, []);
 
-  if (loading) return <p>Loading...</p>;
-  if (moviesWithTopReviews.length === 0) return <p>No movies available</p>;
+  if (loading) return <p className="text-center">Loading...</p>;
+  if (moviesWithTopReviews.length === 0)
+    return <p className="text-center">No movies available</p>;
 
   return (
-    <div className="movie-list">
+    <div className="flex flex-wrap justify-center gap-4">
       {moviesWithTopReviews.map(({ movie, review }, index) => (
-        <div key={`${movie.slug}-${index}`} className="movie">
-          <img src={movie.program.poster} alt="Movie poster" />
-
-          <div className="review">
-            <img src={review.media.logo} alt={`${review.media.name} logo`} />
-            <p>
-              <strong>{review.media.name}</strong>: {review.comment}
-            </p>
-            <p>
+        <div
+          key={`${movie.slug}-${index}`}
+          className="bg-white rounded-lg shadow-lg overflow-hidden w-64"
+        >
+          <img
+            src={movie.program.poster}
+            alt="Movie poster"
+            className="w-full h-40 object-cover"
+          />
+          <div className="p-4">
+            <div className="flex items-center mb-2">
+              <img
+                src={review.media.logo}
+                alt={`${review.media.name} logo`}
+                className="w-10 h-10 mr-2"
+              />
+              <h2 className="text-lg font-semibold">{review.media.name}</h2>
+            </div>
+            <p className="text-gray-700 mb-2">{review.comment}</p>
+            <p className="text-gray-600">
               Score: {review.rating.score}/{review.rating.max} (Normalized:{" "}
               {review.normalized_rating})
             </p>
-            <p>Date: {new Date(review.date).toLocaleDateString()}</p>
+            <p className="text-gray-500 text-sm">
+              Date: {new Date(review.date).toLocaleDateString()}
+            </p>
           </div>
         </div>
       ))}
