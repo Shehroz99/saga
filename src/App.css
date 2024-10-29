@@ -1,4 +1,33 @@
+@font-face {
+  font-family: 'SharpGrotesk';
+  src: url('./assets/fonts/SharpGrotesk-SemiBold25.otf') format('opentype');
+  font-weight: 600; /* Match the semi-bold weight */
+  font-style: normal;
+}
+
 #root {
   margin: 0 auto;
   text-align: center;
+}
+
+
+body {
+  font-family: 'SharpGrotesk', sans-serif;
+}
+
+/* Or apply to specific elements */
+.custom-text {
+  font-family: 'SharpGrotesk', sans-serif;
+}
+
+
+/* Custom style for react-slick dots */
+.slick-dots li button:before {
+  color: white !important; /* Make dots white */
+  opacity: 0.5 !important;   /* Fully opaque */
+}
+
+.slick-dots li.slick-active button:before {
+  color: white !important; /* Active dot in white */
+  opacity: 1 !important;   /* Fully opaque */
 }
