@@ -58,21 +58,22 @@ const MovieListComponent: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen  overflow-hidden flex items-center justify-center min-h-screen;" style={{ backgroundColor: '#13032c' }}>
-      <div  className="w-1/2 border-gray-700"
-  style={{
-    backgroundColor: 'rgba(0, 0, 0, 0.2)', // black with 20% opacity
-    boxShadow: 'inset 2px 4px 17px 0px rgba(247, 116, 222, 0.2)', // semi-transparent pink shadow
-    borderRadius: '12px 12px 12px 12px',
-    borderWidth: '1px 0px 0px 0px',
-  }}
->
+    <div
+      className="min-h-screen  overflow-hidden flex items-center justify-center min-h-screen;"
+      style={{ backgroundColor: "#13032c" }}
+    >
+      <div
+        className="w-1/2 border-gray-700"
+        style={{
+          backgroundColor: "rgba(0, 0, 0, 0.2)", // black with 20% opacity
+          boxShadow: "inset 2px 4px 17px 0px rgba(247, 116, 222, 0.2)", // semi-transparent pink shadow
+          borderRadius: "12px 12px 12px 12px",
+          borderWidth: "1px 0px 0px 0px",
+        }}
+      >
         <Slider {...settings} className="absolute">
           {moviesWithTopReviews.map(({ movie, review }, index) => (
-            <div
-              key={`${movie.slug}-${index}`}
-              className="w-80  text-white "
-            >
+            <div key={`${movie.slug}-${index}`} className="w-80  text-white ">
               {/* Movie Image */}
               <div className="flex py-1">
                 <img
@@ -97,7 +98,7 @@ const MovieListComponent: React.FC = () => {
 
                     {/* Buttons */}
                   </div>
-                  <div className="flex-col justify-end w-fit h-fit absolute inset-x-0 bottom-0">
+                  <div className="flex-col justify-end w-fit h-fit absolute inset-x-2 bottom-2">
                     {/* Rating */}
                     <div className="flex items-center mb-4">
                       {[...Array(6)].map((_, i) => (
@@ -114,14 +115,20 @@ const MovieListComponent: React.FC = () => {
                       ))}
                     </div>
                     <div className=" flex justify-end object-contain ">
-                      <button className="flex items-center justify-center bg-purple-600 px-1 py-1 rounded-lg text-white font-semibold text-xs" style={{
-    backgroundColor: 'rgba(160, 160, 160, 0.3)', // 30% opacity
-  }}>
+                      <button
+                        className="flex items-center justify-center bg-purple-600 px-1 py-1 rounded-lg text-white font-semibold text-xs"
+                        style={{
+                          backgroundColor: "rgba(160, 160, 160, 0.3)", // 30% opacity
+                        }}
+                      >
                         <span className="mr-2">▶️</span> Spill av
                       </button>
-                      <button className=" px-1 py-1 rounded-lg text-white font-semibold text-xs" style={{
-    backgroundColor: 'rgba(160, 160, 160, 0.3)', // 30% opacity
-  }}>
+                      <button
+                        className=" px-1 py-1 rounded-lg text-white font-semibold text-xs"
+                        style={{
+                          backgroundColor: "rgba(160, 160, 160, 0.3)", // 30% opacity
+                        }}
+                      >
                         Les mer
                       </button>
                     </div>
